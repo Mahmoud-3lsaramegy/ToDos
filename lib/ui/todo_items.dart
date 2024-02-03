@@ -14,6 +14,7 @@ class _ToDosState extends State<ToDos> {
     return ListView.builder(
       itemBuilder: (context, index) {
         return Card(
+          color: Colors.white,
           child: Container(
             padding: const EdgeInsets.all(6.5),
             child: Row(
@@ -30,7 +31,6 @@ class _ToDosState extends State<ToDos> {
                 ),
                 const Text(
                   "Do your work.....",
-                  
                 ),
                 const SizedBox(
                   width: 127.2,
