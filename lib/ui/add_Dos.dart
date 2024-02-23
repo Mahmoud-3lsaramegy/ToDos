@@ -1,88 +1,71 @@
-import 'package:app_todo/const/Sizer.dart';
 import 'package:app_todo/const/colors.dart';
 import 'package:app_todo/oprations/add_op.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class AddControlBar extends StatefulWidget {
-  const AddControlBar({super.key});
+class AddContrlorbar extends StatefulWidget {
+  const AddContrlorbar({super.key});
 
   @override
-  State<AddControlBar> createState() => _AddControlBarState();
+  State<AddContrlorbar> createState() => _AddContrlorbarState();
 }
 
-class _AddControlBarState extends State<AddControlBar> {
-  final TextEditingController _title = TextEditingController();
+class _AddContrlorbarState extends State<AddContrlorbar> {
+  TextEditingController title = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: outMargin,
-      width: double.infinity,
-      height: 100,
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
         Expanded(
-          child: TextField(
-            controller: _title,
-            decoration: const InputDecoration(
-                prefixIcon: Icon(
-                  Icons.add,
-                  color: black,
-                ),
-                hintText: "Adding items",
-                border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
-                    borderRadius: BorderRadius.all(Radius.circular(20)))),
+          flex: 3,
+          child: Container(
+            margin: const EdgeInsets.only(
+                top: 8.5, right: 12.5, left: 12.5, bottom: 2.5),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: whiteColor,
+            ),
+            child: TextField(
+              controller: title,
+              decoration: const InputDecoration(
+                  hintText: "Adding items",
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20)))),
+            ),
           ),
         ),
-        Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
-              icon: const Icon(
-                Icons.add,
-                color: Colors.white,
+        Expanded(
+          flex: 1,
+          child: Container(
+              height: 65,
+              margin: const EdgeInsets.only(right: 12.5, top: 8.5),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: blue,
               ),
-              onPressed: () {
-                add(title: _title.text);
-                _title.text = "";
-              },
-              style: const ButtonStyle(
-                  shadowColor: MaterialStatePropertyAll(grey),
-                  backgroundColor: MaterialStatePropertyAll(blue),
-                  shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)))),
-                  fixedSize: MaterialStatePropertyAll(Size(60, 60))),
-            )),
-      ]),
+              child: IconButton(
+                onPressed: () {
+                  if (title.text.isEmpty) {
+                    /// snake bar
+                  } else {
+                    add(title: title.text);
+                    title.text = "";
+                    Navigator.popAndPushNamed(context, "reload");
+                  }
+                },
+                icon: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                  size: 40,
+                ),
+              )),
+        ),
+      ],
     );
   }
-}   
-    
-    
-    /*
-    Container(
-      margin: outMargin,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child:
-       const TextField(
-        decoration: InputDecoration(
-            prefixIcon: Icon(
-              Icons.add,
-              color: black,
-            ),
-            hintText: "Adding items",
-            border: OutlineInputBorder(borderSide: BorderSide.none)),
-      ),
-    );
-    /*
-        ElevatedButton(
-          onPressed: () {},
-          style: const ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll(blue)),
-          child: const Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
-        )*/
-*/
+}
